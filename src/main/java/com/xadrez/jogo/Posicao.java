@@ -1,3 +1,5 @@
+package main.java.com.xadrez.jogo;
+
 public class Posicao {
     private int linha;
     private int coluna;

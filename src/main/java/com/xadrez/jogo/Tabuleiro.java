@@ -1,3 +1,5 @@
+package main.java.com.xadrez.jogo;
+
 public class Tabuleiro {
     private int linha;
     private int coluna;
