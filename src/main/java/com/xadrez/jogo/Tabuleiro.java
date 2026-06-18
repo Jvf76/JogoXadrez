@@ -1,14 +1,14 @@
 package main.java.com.xadrez.jogo;
 
 public class Tabuleiro {
-    private int linha;
-    private int coluna;
+    private int linhas;
+    private int colunas;
     private Peca pecas[][];
 
     public Tabuleiro(int linha, int coluna){
-        this.linha = linha;
-        this.coluna = coluna;
-        this.pecas = new Peca[this.linha][this.coluna];
+        this.linhas = linha;
+        this.colunas = coluna;
+        this.pecas = new Peca[this.linhas][this.colunas];
     }
 
     public Peca peca(int linha, int coluna){
@@ -21,22 +21,23 @@ public class Tabuleiro {
 
     public void colocarPeca(Peca peca, Posicao posicao){
         this.pecas[posicao.getLinha()][posicao.getColuna()] = peca;
+        peca.setPosicao(posicao);
     }
 
     public boolean posicaoExiste(int linha, int coluna){
-        return (linha >= 0 && linha < this.linha && coluna>= 0 && coluna< this.coluna);
+        return (linha >= 0 && linha < this.linhas && coluna>= 0 && coluna< this.colunas);
     }
 
     public boolean posicaoExiste(Posicao posicao){
         return posicaoExiste(posicao.getLinha(),posicao.getColuna());
     }
 
-    public int getLinha() {
-        return linha;
+    public int getLinhas() {
+        return linhas;
     }
 
-    public int getColuna() {
-        return coluna;
+    public int getColunas() {
+        return colunas;
     }
 
 
