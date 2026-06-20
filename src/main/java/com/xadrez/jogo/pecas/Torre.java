@@ -12,6 +12,7 @@ public class Torre extends Peca {
         super(tabuleiro, cor);
     }
 
+
     @Override
     public boolean[][] movimentosPossiveis() {
         int linha = getPosicao().getLinha();
@@ -21,6 +22,8 @@ public class Torre extends Peca {
         int colunaTesteEsquerda = coluna -1;
         int colunaTesteDireita = coluna +1;
         boolean[][] matriz = new boolean[tabuleiro.getLinhas()][tabuleiro.getColunas()];
+
+
 
         while(tabuleiro.posicaoExiste(linhaTesteBaixo, coluna)){
             Peca pecaEncontrada = tabuleiro.peca(linhaTesteBaixo, coluna);
@@ -80,6 +83,24 @@ public class Torre extends Peca {
 
 
         return matriz;
+    }
+    private void verificaMovimentos(boolean[][] matriz, int incrementoLinha, int incrementoColuna){
+        int colunaAtual  = getPosicao().getColuna() + incrementoColuna;
+        int linhaAtual = getPosicao().getLinha() + incrementoLinha;
+
+        while(tabuleiro.posicaoExiste(linhaAtual, colunaAtual)){
+            Peca pecaEncontrada = tabuleiro.peca(incrementoLinha, incrementoColuna);
+            if (pecaEncontrada == null){
+                matriz[linhaAtual][colunaAtual] = true;
+                incrementoLinha++;
+            }else{
+                boolean corAliada = pecaEncontrada.getCor() == this.cor;
+                if (!corAliada){
+                    matriz[incrementoLinha][incrementoColuna] = true;
+                    break;
+                }
+            }
+        }
     }
 
 

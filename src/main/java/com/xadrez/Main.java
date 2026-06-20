@@ -13,6 +13,7 @@ public class Main {
 
         boolean[][] d = torre.movimentosPossiveis();
 
+
         for (int linha = 0; linha < tabuleiro.getLinhas(); linha++) {
             for (int coluna = 0; coluna < tabuleiro.getColunas(); coluna++) {
                 if (linha == 3 && coluna == 3) {
