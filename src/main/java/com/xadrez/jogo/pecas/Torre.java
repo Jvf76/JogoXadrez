@@ -15,88 +15,28 @@ public class Torre extends Peca {
 
     @Override
     public boolean[][] movimentosPossiveis() {
-        int linha = getPosicao().getLinha();
-        int coluna = getPosicao().getColuna();
-        int linhaTesteBaixo = linha + 1;
-        int linhaTesteCima = linha - 1;
-        int colunaTesteEsquerda = coluna -1;
-        int colunaTesteDireita = coluna +1;
         boolean[][] matriz = new boolean[tabuleiro.getLinhas()][tabuleiro.getColunas()];
-
-
-
-        while(tabuleiro.posicaoExiste(linhaTesteBaixo, coluna)){
-            Peca pecaEncontrada = tabuleiro.peca(linhaTesteBaixo, coluna);
-            if (pecaEncontrada == null){
-                matriz[linhaTesteBaixo][coluna] = true;
-                linhaTesteBaixo++;
-            }else{
-                boolean corAliada = pecaEncontrada.getCor() == this.cor;
-                if (!corAliada){
-                    matriz[linhaTesteBaixo][coluna] = true;
-                    break;
-                }
-            }
-        }
-
-        while(tabuleiro.posicaoExiste(linhaTesteCima, coluna)){
-            Peca pecaEncontrada = tabuleiro.peca(linhaTesteCima, coluna);
-            if (pecaEncontrada == null){
-                matriz[linhaTesteCima][coluna] = true;
-                linhaTesteCima--;
-            }else{
-                boolean corAliada = pecaEncontrada.getCor() == this.cor;
-                if (!corAliada){
-                    matriz[linhaTesteCima][coluna] = true;
-                    break;
-                }
-            }
-        }
-
-        while(tabuleiro.posicaoExiste(linha, colunaTesteEsquerda)){
-            Peca pecaEncontrada = tabuleiro.peca(linha, colunaTesteEsquerda);
-            if (pecaEncontrada == null){
-                matriz[linha][colunaTesteEsquerda] = true;
-                colunaTesteEsquerda--;
-            }else{
-                boolean corAliada = pecaEncontrada.getCor() == this.cor;
-                if (!corAliada){
-                    matriz[linha][colunaTesteEsquerda] = true;
-                    break;
-                }
-            }
-        }
-
-        while(tabuleiro.posicaoExiste(linha, colunaTesteDireita)){
-            Peca pecaEncontrada = tabuleiro.peca(linha, colunaTesteDireita);
-            if (pecaEncontrada == null){
-                matriz[linha][colunaTesteDireita] = true;
-                colunaTesteDireita++;
-            }else{
-                boolean corAliada = pecaEncontrada.getCor() == this.cor;
-                if (!corAliada){
-                    matriz[linha][colunaTesteDireita] = true;
-                    break;
-                }
-            }
-        }
-
-
+        verificaMovimentos(matriz,-1,0);
+        verificaMovimentos(matriz,1,0);
+        verificaMovimentos(matriz,0,-1);
+        verificaMovimentos(matriz,0,1);
         return matriz;
     }
+
     private void verificaMovimentos(boolean[][] matriz, int incrementoLinha, int incrementoColuna){
         int colunaAtual  = getPosicao().getColuna() + incrementoColuna;
         int linhaAtual = getPosicao().getLinha() + incrementoLinha;
 
         while(tabuleiro.posicaoExiste(linhaAtual, colunaAtual)){
-            Peca pecaEncontrada = tabuleiro.peca(incrementoLinha, incrementoColuna);
+           Peca pecaEncontrada = tabuleiro.peca(linhaAtual,colunaAtual);
             if (pecaEncontrada == null){
                 matriz[linhaAtual][colunaAtual] = true;
-                incrementoLinha++;
+                    linhaAtual = linhaAtual + incrementoLinha;
+                    colunaAtual = colunaAtual + incrementoColuna;
             }else{
                 boolean corAliada = pecaEncontrada.getCor() == this.cor;
                 if (!corAliada){
-                    matriz[incrementoLinha][incrementoColuna] = true;
+                    matriz[linhaAtual][colunaAtual] = true;
                     break;
                 }
             }
