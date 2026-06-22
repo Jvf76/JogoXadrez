@@ -16,32 +16,14 @@ public class Torre extends Peca {
     @Override
     public boolean[][] movimentosPossiveis() {
         boolean[][] matriz = new boolean[tabuleiro.getLinhas()][tabuleiro.getColunas()];
-        verificaMovimentos(matriz,-1,0);
+
         verificaMovimentos(matriz,1,0);
         verificaMovimentos(matriz,0,-1);
         verificaMovimentos(matriz,0,1);
         return matriz;
     }
 
-    private void verificaMovimentos(boolean[][] matriz, int incrementoLinha, int incrementoColuna){
-        int colunaAtual  = getPosicao().getColuna() + incrementoColuna;
-        int linhaAtual = getPosicao().getLinha() + incrementoLinha;
 
-        while(tabuleiro.posicaoExiste(linhaAtual, colunaAtual)){
-           Peca pecaEncontrada = tabuleiro.peca(linhaAtual,colunaAtual);
-            if (pecaEncontrada == null){
-                matriz[linhaAtual][colunaAtual] = true;
-                    linhaAtual = linhaAtual + incrementoLinha;
-                    colunaAtual = colunaAtual + incrementoColuna;
-            }else{
-                boolean corAliada = pecaEncontrada.getCor() == this.cor;
-                if (!corAliada){
-                    matriz[linhaAtual][colunaAtual] = true;
-                    break;
-                }
-            }
-        }
-    }
 
 
 }
