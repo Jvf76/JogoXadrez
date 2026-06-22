@@ -3,6 +3,8 @@ package main.java.com.xadrez;
 import main.java.com.xadrez.jogo.Cor;
 import main.java.com.xadrez.jogo.Posicao;
 import main.java.com.xadrez.jogo.Tabuleiro;
+import main.java.com.xadrez.jogo.pecas.Rainha;
+import main.java.com.xadrez.jogo.pecas.Rei;
 import main.java.com.xadrez.jogo.pecas.Torre;
 import main.java.com.xadrez.jogo.pecas.Bispo;
 
@@ -14,7 +16,13 @@ public class Main {
         Bispo bispo = new Bispo(tabuleiro, Cor.BRANCA);
         tabuleiro.colocarPeca(bispo, new Posicao(3,3));
 
-        boolean[][] d = bispo.movimentosPossiveis();
+        Rainha rainha = new Rainha(tabuleiro, Cor.BRANCA);
+        tabuleiro.colocarPeca(rainha,new Posicao(3,3));
+
+        Rei rei = new Rei(tabuleiro, Cor.BRANCA);
+        tabuleiro.colocarPeca(rei,new Posicao(3,3));
+
+        boolean[][] d = rei.movimentosPossiveis();
 
 
         for (int linha = 0; linha < tabuleiro.getLinhas(); linha++) {
