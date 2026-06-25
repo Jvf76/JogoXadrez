@@ -3,15 +3,13 @@ package main.java.com.xadrez;
 import main.java.com.xadrez.jogo.Cor;
 import main.java.com.xadrez.jogo.Posicao;
 import main.java.com.xadrez.jogo.Tabuleiro;
-import main.java.com.xadrez.jogo.pecas.Rainha;
-import main.java.com.xadrez.jogo.pecas.Rei;
-import main.java.com.xadrez.jogo.pecas.Torre;
-import main.java.com.xadrez.jogo.pecas.Bispo;
+import main.java.com.xadrez.jogo.pecas.*;
 
 public class Main {
     public static void main(String[] args) {
         Tabuleiro tabuleiro = new Tabuleiro(8,8);
         Torre torre = new Torre(tabuleiro, Cor.BRANCA);
+
         tabuleiro.colocarPeca(torre, new Posicao(3,3));
         Bispo bispo = new Bispo(tabuleiro, Cor.BRANCA);
         tabuleiro.colocarPeca(bispo, new Posicao(3,3));
@@ -22,7 +20,10 @@ public class Main {
         Rei rei = new Rei(tabuleiro, Cor.BRANCA);
         tabuleiro.colocarPeca(rei,new Posicao(3,3));
 
-        boolean[][] d = rei.movimentosPossiveis();
+        Cavalo cavalo = new Cavalo(tabuleiro, Cor.BRANCA);
+        tabuleiro.colocarPeca(cavalo,new Posicao(3,3));
+
+        boolean[][] d = cavalo.movimentosPossiveis();
 
 
         for (int linha = 0; linha < tabuleiro.getLinhas(); linha++) {
