@@ -21,7 +21,9 @@ public class Tabuleiro {
 
     public void colocarPeca(Peca peca, Posicao posicao){
         this.pecas[posicao.getLinha()][posicao.getColuna()] = peca;
-        peca.setPosicao(posicao);
+        if (peca != null) {
+            peca.setPosicao(posicao);
+        }
     }
 
     public boolean posicaoExiste(int linha, int coluna){

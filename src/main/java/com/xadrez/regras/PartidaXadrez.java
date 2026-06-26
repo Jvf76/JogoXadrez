@@ -1,21 +1,54 @@
-package main.java.com.xadrez.regras;
+package main.java.com.xadrez.jogo;
 
-import main.java.com.xadrez.jogo.Cor;
-import main.java.com.xadrez.jogo.Posicao;
-import main.java.com.xadrez.jogo.Tabuleiro;
 import main.java.com.xadrez.jogo.pecas.*;
 
 public class PartidaXadrez {
 
     private Tabuleiro tabuleiro;
+    private Cor jogadorAtual;
 
     public PartidaXadrez() {
         tabuleiro = new Tabuleiro(8, 8);
+        jogadorAtual = Cor.BRANCA;
         configuracaoInicial();
     }
 
+    public Peca realizarMovimento(Posicao origem, Posicao destino) {
+        Peca peca = tabuleiro.peca(origem);
+
+        if (peca == null) {
+            throw new RuntimeException("Não existe peça na posição de origem.");
+        }
+
+        if (peca.getCor() != jogadorAtual) {
+            throw new RuntimeException("Essa peça não pertence ao jogador atual.");
+        }
+
+        boolean[][] movimentosPossiveis = peca.movimentosPossiveis();
+
+        if (!movimentosPossiveis[destino.getLinha()][destino.getColuna()]) {
+            throw new RuntimeException("Movimento inválido para essa peça.");
+        }
+
+        Peca pecaCapturada = tabuleiro.peca(destino);
+
+        tabuleiro.colocarPeca(null, origem);
+        tabuleiro.colocarPeca(peca, destino);
+
+        proximoTurno();
+
+        return pecaCapturada;
+    }
+
+    private void proximoTurno() {
+        if (jogadorAtual == Cor.BRANCA) {
+            jogadorAtual = Cor.PRETA;
+        } else {
+            jogadorAtual = Cor.BRANCA;
+        }
+    }
+
     private void configuracaoInicial() {
-        // Peças pretas (linhas 0 e 1)
         tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.PRETA), new Posicao(0, 0));
         tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.PRETA), new Posicao(0, 1));
         tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.PRETA), new Posicao(0, 2));
@@ -28,7 +61,6 @@ public class PartidaXadrez {
             tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.PRETA), new Posicao(1, coluna));
         }
 
-        // Peças brancas (linhas 7 e 6)
         tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.BRANCA), new Posicao(7, 0));
         tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.BRANCA), new Posicao(7, 1));
         tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.BRANCA), new Posicao(7, 2));
@@ -44,5 +76,9 @@ public class PartidaXadrez {
 
     public Tabuleiro getTabuleiro() {
         return tabuleiro;
+    }
+
+    public Cor getJogadorAtual() {
+        return jogadorAtual;
     }
 }
